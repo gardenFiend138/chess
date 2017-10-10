@@ -1,7 +1,7 @@
 
 require_relative 'pieces.rb'
 class Board
-  # attr_accessor :grid
+attr_accessor :grid
 
   def initialize
     @grid = Array.new(8) { Array.new(8) }
@@ -40,14 +40,14 @@ class Board
     @grid[x][y] = piece
   end
 
-  def render
-    @grid.each_with_index do |row, i|
-      row.each_with_index do |col, j|
-        print "| #{col.value} |" if j < @grid.length - 2
-        puts "| #{col.value} |" if j == @grid.length - 1
-      end
-    end
-  end
+  # def render
+  #   @grid.each_with_index do |row, i|
+  #     row.each_with_index do |col, j|
+  #       print "| #{col.value} |" if j < @grid.length - 2
+  #       puts "| #{col.value} |" if j == @grid.length - 1
+  #     end
+  #   end
+  # end
 
   def in_bounds(pos)
     x, y = pos

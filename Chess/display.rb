@@ -8,16 +8,27 @@ class Display
    end
 
    def render
-     @board.render
-     @cursor.cursor_pos = @cursor.get_input
-     @board.render
-     @board[@cursor.cursor_pos].value.colorize(:light_blue ).colorize( :background => :red)
-   end
+     system("clear")
+     @board.grid.each_with_index do |row, i|
+       row.each_with_index do |col, j|
+         pos = col.value
+         if [i, j] == @cursor.cursor_pos
+           pos = @board[@cursor.cursor_pos].value.colorize(:light_blue ).colorize( :background => :red)
+         #else
+         end
+         print "| #{pos} |"
+         #puts "| #{col.value} |" if j == @grid.length - 1
+       end
+       puts " "
+     end
 
+    @cursor.cursor_pos = @cursor.get_input
+
+  end
 end
 
 if __FILE__ == $0
   board = Board.new
   display = Display.new(board)
-  display.render
+  display.render until false
 end

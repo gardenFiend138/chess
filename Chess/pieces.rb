@@ -5,7 +5,7 @@ class Piece
   def initialize
     @piece = :pawn
     @pos = nil
-    @value = "p"
+    @value = "p"#.colorize(:red)
   end
 
   def valid_move?(pos)
