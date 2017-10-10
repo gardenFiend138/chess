@@ -14,10 +14,9 @@ class Display
          pos = col.value
          if [i, j] == @cursor.cursor_pos
            pos = @board[@cursor.cursor_pos].value.colorize(:light_blue ).colorize( :background => :red)
-         #else
          end
          print "| #{pos} |"
-         #puts "| #{col.value} |" if j == @grid.length - 1
+
        end
        puts " "
      end
