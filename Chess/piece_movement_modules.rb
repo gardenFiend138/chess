@@ -12,12 +12,13 @@ module SlidingPiece
     move_down
   end
 
-  def Bishop_moves
+  def bishop_moves
     move_down_right
     move_down_left
     move_up_right
     move_up_left
   end
+
   def move_right
     i = 1
     until false
@@ -194,7 +195,6 @@ module SteppingPiece
 
 end
 
-# call 2.times on first turn for moving two spots?
 module PawnPiece
   def pawn_moves
     pawn_move_up
@@ -204,13 +204,20 @@ module PawnPiece
   def pawn_move_up
     x, y = @pos
     if x == 1 || x == 6
+      @moves << [x - 2, y] if x - 2 > 0 && @board[pos].color == nil && @color == :white
+      @moves << [x + 2, y] if x - 2 > 0 && @board[pos].color == nil && @color == :black
+    end
 
-    @moves << [x - 1, y] if x - 1 > 0 && @board[pos].color == nil
+    @moves << [x - 1, y] if x - 1 > 0 && @board[pos].color == nil && @color == :white
+    @moves << [x + 1, y] if x - 1 > 0 && @board[pos].color == nil && @color == :black
   end
 
   def pawn_take_diag
     x, y = @pos
-    @moves << [x - 1, y + 1] if x - 1 > 0 && y + 1 < 7 && @board[pos].color != @color && @board[pos].color != nil
-    @moves << [x - 1, y - 1] if x - 1 > 0 && y - 1 < 0 && @board[pos].color != @color && @board[pos].color != nil
+    @moves << [x - 1, y + 1] if x - 1 > 0 && y + 1 < 7 && @board[pos].color != @color && @board[pos].color != nil && @color == :white
+    @moves << [x - 1, y - 1] if x - 1 > 0 && y - 1 < 0 && @board[pos].color != @color && @board[pos].color != nil && @color == :white
+    @moves << [x + 1, y + 1] if x + 1 < 7 && y + 1 < 7 && @board[pos].color != @color && @board[pos].color != nil && @color == :black
+    @moves << [x + 1, y - 1] if x + 1 < 7 && y - 1 < 0 && @board[pos].color != @color && @board[pos].color != nil && @color == :black
   end
+
 end

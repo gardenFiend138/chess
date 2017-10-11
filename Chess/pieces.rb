@@ -1,3 +1,5 @@
+require_relative 'board.rb'
+require_relative 'piece_movement_modules.rb'
 class Piece
 
   def initialize(board)
@@ -29,15 +31,23 @@ class Piece
     @value
   end
 
+  def value=(value)
+    @value = value
+  end 
+
+  def moves
+    @moves
+  end
+
   def valid_move?(pos)
-    self.moves.include?(pos)
+    @moves.include?(pos)
   end
 
 end
 
 
 class NullPiece < Piece
-
+  # include Singleton
   def initialize(board)
     super
     @piece = :null
@@ -53,7 +63,8 @@ class Bishop < Piece
     @value = "B"
   end
 
-  def move_dirs(start_pos = self.pos)
+  def move_dirs
+    bishop_moves
   end
 end
 
@@ -66,8 +77,7 @@ class Rook < Piece
   end
 
   def move_dirs
-    :horizontal
-    :vertical
+    rook_moves
   end
 end
 
@@ -80,15 +90,7 @@ class Queen < Piece
   end
 
   def move_dirs
-    :diagonal
-    :horizontal
-    :vertical
-  end
-end
-
-module SteppingPiece
-  def moves
-
+    queen_moves
   end
 end
 
@@ -101,6 +103,7 @@ class King < Piece
   end
 
   def move_dirs
+    king_moves
   end
 end
 
@@ -113,13 +116,27 @@ class Knight < Piece
   end
 
   def move_dirs
+    knight_moves
   end
 end
 
 class Pawn < Piece
+  include PawnPiece
+
   def initialize(board)
     super
     @value = "P"
   end
 
+  def move_dirs
+    pawn_moves
+  end
+
+end
+
+if __FILE__ == $0
+  board = Board.new
+  pawn = Pawn.new(board)
+  pawn.move_dirs
+  pawn.moves
 end
